@@ -8,6 +8,8 @@
 #include <unistd.h>
 #include <sys/types.h>
 
+extern char **environ;
+
 /* Core Functions */
 
 /* Helper Functions */
