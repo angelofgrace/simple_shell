@@ -8,9 +8,18 @@
 #include <unistd.h>
 #include <sys/types.h>
 
+extern char **environ;
+
 /* Core Functions */
 
+/* Parse the global var, environ, usually to find PATH */
+char *_get_env(char *name);
+
+
 /* Helper Functions */
+
+/* Search a string for a substring */
+char *_strstr(char *haystack char *needle);
 
 /* Find a the length of a string */
 int _strlen(char *s);
