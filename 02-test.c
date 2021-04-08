@@ -6,7 +6,7 @@
 *
 * Return: found string, name, at its location within ennviron
 */
-char *_get_env(char *name)
+char *_getenv(const char *name)
 {
 	int i;
 	char *found;
@@ -26,11 +26,10 @@ char *_get_env(char *name)
 }
 
 
-/*
 int main (void)
 {
-	char *env = _get_env("PATH");
+	char *env = _getenv("PWD");
 
 	(void)env;
 	return (0);
-} */
+}

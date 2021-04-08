@@ -4,7 +4,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <sys/types.h>
-extern char **environ; /* enviornmental array */
+#include "shell.h"
 int _strlen(char *s); /* string length helper function */
 void free_token(char *array[], int size); /* data free-ing helper function */
 char **tokenize(char *line, int *token_count);
@@ -18,10 +18,13 @@ int main(void)
         ssize_t character;
         pid_t child;
 
+	while(1)
+	{
         printf("$ "); /* prompt user for input */
         getline(&lineptr, &n, stdin);
 	exec_str = tokenize(lineptr, &token_count);
-        child = fork();
+	
+	child = fork();
         if (child == -1) /* fork fail */
         {
                 free(lineptr);
@@ -43,8 +46,10 @@ int main(void)
         {
 		wait(&status);
         }
+	}
         free(lineptr);
         free_token(exec_str, token_count);
+
         return (0);
 }
 
