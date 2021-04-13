@@ -5,22 +5,19 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include "shell.h"
-int _strlen(char *s); /* string length helper function */
-char **tokenize(char *string, char *delim);
-void free_ptr_arr(char **dbl_ptr);
 
 int main(void)
 {
-	int  status;
-	char *lineptr = NULL;
+	int  status, x;
+	char *lineptr = NULL, *path_str = NULL;
 	char **exec_str = NULL; 
 	size_t n = 0;
-	ssize_t character;
 	pid_t child;
 
-	while (getline(&lineptr, &n, stdin) != -1)
+	while (1)
 	{
-        	printf("$ "); /* prompt user for input */
+	       	printf("$ "); /* prompt user for input */
+		getline(&lineptr, &n, stdin);
 		lineptr[_strlen(lineptr) - 1] = '\0'; /* replace /n with null byte */
 		exec_str = tokenize(lineptr, " "); /* tokenize commands */
 
@@ -33,9 +30,12 @@ int main(void)
 	        }
 		if (child == 0)
 	        {
+			path_str = _getenv("PATH");
+			exec_str[0] = search_PATH(path_str, exec_str[0]);
+			for (x = 0; exec_str[x] != NULL; x++)
+				printf("Element %d of exec_str: %s\n", x, exec_str[x]);
 			/* execute shell script, overwriting child process */
-                	character = execve(exec_str[0], exec_str, environ);
-			if (character == EOF) /* execve fail */
+                	if (execve(exec_str[0], exec_str, environ) == -1)
 			{
 				free(lineptr);
 				free(exec_str);
@@ -80,38 +80,13 @@ char **tokenize(char *string, char *delim)
 	}
 	token = strtok(string, delim); /* init strtok again */
 	parsed_str[token_count - 1] = NULL; /* NULL terminate the array of strings */
-	while (i <= token_count)
+	token_count--;
+	while (i < token_count)
 	{
 		parsed_str[i] = (token);
 		token = strtok(NULL, delim);
-		token_count--;
 		i++;
 	}
 	return (parsed_str);
 }
 
-/*
-* _strlen - determine the length of an array of characters
-* @s: input string literal
-*
-* Return: number of characters in the string
-*/
-
-int _strlen(char *s)
-{
-        int x;
-
-	x = 0;
-
-	if (s == NULL)
-	{
-		return(x);
- 	}
-
-        while (s[x] != '\0')
-        {
-                x++;
-        }
-
-return (x);
-}
