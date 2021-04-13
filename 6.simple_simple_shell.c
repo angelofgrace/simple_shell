@@ -10,6 +10,7 @@ int main(void)
 {
 	int  status, x;
 	char *lineptr = NULL, *path_str = NULL;
+	char word_path[5] = {'P', 'A', 'T', 'H', '\0'};
 	char **exec_str = NULL; 
 	size_t n = 0;
 	pid_t child;
@@ -29,8 +30,8 @@ int main(void)
         	        exit(0);
 	        }
 		if (child == 0)
-	        {
-			path_str = _getenv("PATH");
+		{
+			path_str = _getenv(word_path);
 			exec_str[0] = search_PATH(path_str, exec_str[0]);
 			for (x = 0; exec_str[x] != NULL; x++)
 				printf("Element %d of exec_str: %s\n", x, exec_str[x]);
