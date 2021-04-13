@@ -17,7 +17,7 @@ extern char **environ;
 char **tokenize(char *string, char *delim);
 
 /* Parse the global var, environ, usually to find PATH */
-char *_getenv(const char *name);
+char *_getenv(char *name);
 
 /* Parse the PATH value string to identify requested executable file status */
 char *search_PATH(char *pth, char *command_file);
@@ -40,8 +40,8 @@ char *_strncat(char *dest, char *src, int n);
 /* Copy n characters from source buffer to destination */
 char *_strncpy(char *dest, char *src, int n);
 
-/* Reallocate memory holding a string literal */
-char *realloc_lite(char *og_str, size_t size);
+/* Search for matching prefix substring */
+int _strspn(char *s, char *accept);
 
 
 /* SHELL_H end */
