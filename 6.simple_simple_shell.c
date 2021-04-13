@@ -6,9 +6,11 @@
 #include <sys/types.h>
 #include "shell.h"
 
+#define BUF_SIZE 1024
+
 int main(void)
 {
-	int  status, x;
+	int  status, x, chars_read;
 	char *lineptr = NULL, *path_str = NULL;
 	char word_path[5] = {'P', 'A', 'T', 'H', '\0'};
 	char **exec_str = NULL; 
@@ -17,8 +19,25 @@ int main(void)
 
 	while (1)
 	{
-	       	printf("$ "); /* prompt user for input */
-		getline(&lineptr, &n, stdin);
+		if (isatty(fileno(stdin)))
+		       	write(2, "$ ", 2); /* prompt user for input */
+		
+		if (getline(&lineptr, &n, stdin) == -1)
+		{
+			chars_read = read(STDIN_FILENO, lineptr, BUF_SIZE);
+			if (chars_read == 0)
+				break; /* this means EOF */
+			else if (chars_read == -1)
+			{
+				perror("read"); /* read error */
+				break;
+			}	
+			else
+			{
+				perror("getline"); /* getline error */
+				break;
+			}
+		}
 		lineptr[_strlen(lineptr) - 1] = '\0'; /* replace /n with null byte */
 		exec_str = tokenize(lineptr, " "); /* tokenize commands */
 
