@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <errno.h>
 
 extern char **environ;
 
@@ -44,6 +45,7 @@ char *_strncpy(char *dest, char *src, int n);
 int _strspn(char *s, char *accept);
 
 /* Fork the stream for execve */
-int fork_find_exec(char *lineptr, char **exec_str)
+int fork_find_exec(char *lineptr, char **exec_str);
+
 /* SHELL_H end */
 #endif
