@@ -107,8 +107,11 @@ int fork_find_exec(char *lineptr, char **exec_str)
 	}
 	if (child == 0)
 	{
+		if (exec_str[0][0] != '/')
+		{
 		path_str = _getenv(word_path);
 		exec_str[0] = search_PATH(path_str, exec_str[0]);
+		}
 		if (execve(exec_str[0], exec_str, environ) == -1)
 		{
 			free(lineptr);
