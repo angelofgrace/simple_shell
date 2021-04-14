@@ -71,3 +71,43 @@ char **tokenize(char *string, char *delim)
 	}
 	return (parsed_str);
 }
+/**
+  *fork_find_exec - function to preform the fork function
+  *@lineptr: the the string being passed int the stream
+  *@exec_str: the token of the stream being searched for
+  *Return: status of wait
+  */
+int fork_find_exec(char *lineptr, char **exec_str)
+{
+        
+	pid_t child;
+        int status = 0;
+        char *path_str = NULL;
+        char word_path[5] = {'P', 'A', 'T', 'H', '\0'};
+        child = fork();
+        
+	if (child == -1) /* fork fail */
+	{
+		free(lineptr);
+		free(exec_str);
+		exit(0);
+	}
+	if (child == 0)
+	{
+		path_str = _getenv(word_path);
+		exec_str[0] = search_PATH(path_str, exec_str[0]);
+		if (execve(exec_str[0], exec_str, environ) == -1)
+		{
+			free(lineptr);
+			free(exec_str);
+			perror("execve");
+			exit(1);
+		}
+	}
+	else
+	{
+		wait(&status);
+		
+	}
+	return (status);
+}
