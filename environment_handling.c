@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
-* get_env - prints the environment
+* _getenv - prints the environment
 * @name: string sought within the environment array of strings
 *
 * Return: found string, name, at its location within ennviron
@@ -13,7 +13,7 @@ char *_getenv(char *name)
 
 	if (!name)
 	{
-		return NULL;
+		return (NULL);
 	}
 
 	for (i = 0; environ[i] != '\0'; i++)
@@ -27,7 +27,7 @@ char *_getenv(char *name)
 
 /**
 * search_PATH - tokenize the PATH environment and search for
-* 	an existing executable file
+*	an existing executable file
 * @pth: PATH environment value
 * @command_file: desired executable command
 *
@@ -66,3 +66,4 @@ char *search_PATH(char *pth, char *command_file)
 	}
 	return (dir);
 }
+
