@@ -18,8 +18,12 @@ int main(void)
 		
 		if (getline(&lineptr, &n, stdin) == -1)
 		{
-			if (errno = 0)
+			if (errno = 0 || errno == 25)
+			{
+				if( isatty(fileno(stdin)))
+					write(1, "\n", 1); 
 				break; /* this means EOF */
+			}	
 			else
 			{
 				perror("getline"); /* getline error */
