@@ -25,7 +25,7 @@ int main(void)
 			}
 			else
 			{
-				perror("getline"); /* getline error */
+				perror("./hsh"); /* getline error */
 				break;
 			}
 		}
@@ -117,7 +117,7 @@ int fork_find_exec(char *lineptr, char **exec_str)
 		{
 			free(lineptr);
 			free(exec_str);
-			perror("execve");
+			perror("./hsh");
 			exit(1);
 		}
 	}
