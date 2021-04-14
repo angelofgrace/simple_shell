@@ -17,12 +17,13 @@ int main(void)
 			write(2, "$ ", 2); /* prompt user for input */
 		if (getline(&lineptr, &n, stdin) == -1)
 		{
-			if (errno == 0)
-				break; /* this means EOF */
-			else if (errno == 25)
+			if (errno == 0 || errno == 25)
 			{
-				break;
+				if (isatty(fileno(stdin)))
+					write (1, "\n", 1);
+				break; /* this means EOF */
 			}
+			else
 			{
 				perror("getline"); /* getline error */
 				break;
@@ -126,3 +127,4 @@ int fork_find_exec(char *lineptr, char **exec_str)
 	}
 	return (status);
 }
+
