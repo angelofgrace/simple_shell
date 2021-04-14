@@ -13,19 +13,19 @@ int main(void)
 	errno = 0;
 	while (1)
 	{
-		if (isatty(fileno(stdin)))
+		if (isatty(STDIN_FILENO))
 			write(2, "$ ", 2); /* prompt user for input */
 		if (getline(&lineptr, &n, stdin) == -1)
 		{
 			if (errno == 0 || errno == 25)
 			{
-				if (isatty(fileno(stdin)))
+				if (isatty(STDIN_FILENO))
 					write (1, "\n", 1);
 				break; /* this means EOF */
 			}
 			else
 			{
-				perror("getline"); /* getline error */
+				perror("./hsh"); /* getline error */
 				break;
 			}
 		}
@@ -117,7 +117,7 @@ int fork_find_exec(char *lineptr, char **exec_str)
 		{
 			free(lineptr);
 			free(exec_str);
-			perror("execve");
+			perror("./hsh");
 			exit(1);
 		}
 	}
