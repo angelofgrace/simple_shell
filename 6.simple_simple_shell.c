@@ -20,12 +20,12 @@ int main(void)
 			if (errno == 0 || errno == 25)
 			{
 				if (isatty(fileno(stdin)))
-					write (1, "\n", 1);
+					write(1, "\n", 1);
 				break; /* this means EOF */
 			}
 			else
 			{
-				perror("getline"); /* getline error */
+				perror("./hsh"); /* getline error */
 				break;
 			}
 		}
@@ -93,17 +93,24 @@ char **tokenize(char *string, char *delim)
   */
 int fork_find_exec(char *lineptr, char **exec_str)
 {
-
 	pid_t child;
 	int status = 0;
 	char *path_str = NULL;
 	char word_path[5] = {'P', 'A', 'T', 'H', '\0'};
 
 	child = fork();
-	if (child == -1) /* fork fail */
+	if (child == -1)
 	{
-		free(lineptr);
-		free(exec_str);
+		if (exec_str != NULL)
+		{
+			free(exec_str);
+			exec_str = NULL;
+		}
+		if (lineptr != NULL)
+		{
+			free(lineptr);
+			lineptr = NULL;
+		}
 		exit(0);
 	}
 	if (child == 0)
@@ -117,7 +124,7 @@ int fork_find_exec(char *lineptr, char **exec_str)
 		{
 			free(lineptr);
 			free(exec_str);
-			perror("execve");
+			perror("./hsh");
 			exit(1);
 		}
 	}
