@@ -93,17 +93,24 @@ char **tokenize(char *string, char *delim)
   */
 int fork_find_exec(char *lineptr, char **exec_str)
 {
-
 	pid_t child;
 	int status = 0;
 	char *path_str = NULL;
 	char word_path[5] = {'P', 'A', 'T', 'H', '\0'};
 
 	child = fork();
-	if (child == -1) /* fork fail */
+	if (child == -1)
 	{
-		free(lineptr);
-		free(exec_str);
+		if (exec_str != NULL)
+		{
+			free(exec_str);
+			exec_str = NULL;
+		}
+		if (lineptr != NULL)
+		{
+			free(lineptr);
+			lineptr = NULL;
+		}
 		exit(0);
 	}
 	if (child == 0)

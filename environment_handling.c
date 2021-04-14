@@ -35,13 +35,12 @@ char *_getenv(char *name)
 */
 char *search_PATH(char *pth, char *command_file)
 {
-	int i = 0, cmd_len = 0, x;
+	int i = 0, cmd_len = 0;
 	char **env_token = NULL;
 	char *dir = NULL;
 	struct stat structbuf;
 
 	env_token = tokenize(pth, ":");
-	for (x = 0; env_token[x] != NULL; x++)
 	cmd_len = _strlen(command_file);
 	while (env_token[i])
 	{
@@ -51,14 +50,12 @@ char *search_PATH(char *pth, char *command_file)
 		dir = _strncat(dir, "/", 2); /* slash before command sought */
 		dir = _strncat(dir, command_file, cmd_len + 1); /* add command */
 		if (stat(dir, &structbuf) == 0)
-		{
-			free(env_token);
 			break;
-		}
 		free(dir);
 		dir = NULL;
 		i++;
 	}
+	free(env_token);
 	free(pth);
 	if (!dir)
 	{
