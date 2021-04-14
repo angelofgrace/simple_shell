@@ -16,14 +16,14 @@ int _strspn(char *s, char *accept)
 
 	for (i = 0; accept[i] == s[i]; i++)
 	{
-			n++;
+		n++;
 		if (accept[i] == 00 || s[i] == 00)
 			break;
 	}
 
 	if (n == _strlen(accept))
 	{
-		return (0);	
+		return (0);
 	}
 
 	return (-1);

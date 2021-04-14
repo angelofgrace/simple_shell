@@ -1,20 +1,20 @@
 #include "shell.h"
 /**
-  *main - entry point th the simple shell
-  *
-  *Return 0 on suceess
-  */
+* main - entry point th the simple shell
+*
+* Return: 0 on suceess, exit code on error (with stderr output)
+*/
 int main(void)
 {
 	char *lineptr = NULL;
-	char **exec_str = NULL; 
+	char **exec_str = NULL;
 	size_t n = 0;
 
 	errno = 0;
 	while (1)
 	{
 		if (isatty(fileno(stdin)))
-		       	write(2, "$ ", 2); /* prompt user for input */
+			write(2, "$ ", 2); /* prompt user for input */
 		if (getline(&lineptr, &n, stdin) == -1)
 		{
 			if (errno == 0)
@@ -34,9 +34,19 @@ int main(void)
 		free(exec_str);
 	}
 	free(lineptr);
-        return (0);
+	return (0);
 }
 
+/**
+* tokenize - Use strtok to measure a string and create an array of pointers
+*	to delimited sections within it
+* @string: null-terminated array of characters to be tokenized
+* @delim: delimiter by which to identify the end of one token
+*	and beginning of the next
+*
+* Return: An array of pointers which each point to the first character
+*	of subsequnt token segments of the input string.
+*/
 char **tokenize(char *string, char *delim)
 {
 	int token_count = 1, i = 0, x = 0, len = 0;
@@ -73,6 +83,7 @@ char **tokenize(char *string, char *delim)
 	}
 	return (parsed_str);
 }
+
 /**
   *fork_find_exec - function to preform the fork function
   *@lineptr: the the string being passed int the stream
@@ -81,13 +92,13 @@ char **tokenize(char *string, char *delim)
   */
 int fork_find_exec(char *lineptr, char **exec_str)
 {
-        
-	pid_t child;
-        int status = 0;
-        char *path_str = NULL;
-        char word_path[5] = {'P', 'A', 'T', 'H', '\0'};
 
-        child = fork();
+	pid_t child;
+	int status = 0;
+	char *path_str = NULL;
+	char word_path[5] = {'P', 'A', 'T', 'H', '\0'};
+
+	child = fork();
 	if (child == -1) /* fork fail */
 	{
 		free(lineptr);
@@ -109,7 +120,6 @@ int fork_find_exec(char *lineptr, char **exec_str)
 	else
 	{
 		wait(&status);
-		
 	}
 	return (status);
 }
