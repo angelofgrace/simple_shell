@@ -17,21 +17,12 @@ int main(void)
 			write(2, "$ ", 2); /* prompt user for input */
 		if (getline(&lineptr, &n, stdin) == -1)
 		{
-<<<<<<< HEAD
-			if (errno = 0 || errno == 25)
-			{
-				if (isatty(fileno(stdin)))
-					write(1, "\n", 1); 
-				break; /* this means EOF */
-			}	
-=======
 			if (errno == 0 || errno == 25)
 			{
 				if (isatty(fileno(stdin)))
 					write (1, "\n", 1);
 				break; /* this means EOF */
 			}
->>>>>>> 78a6e7170d0e6b92375c341f20da881fffd3742a
 			else
 			{
 				perror("getline"); /* getline error */
