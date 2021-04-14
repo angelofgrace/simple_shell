@@ -1,0 +1,37 @@
+.\" Manpage for Holberton Shell
+.\" Contact for questions Grace Fallon or Derek Clemens on slack
+.TH man 3 "15 Apr 2021" "1.0" "simple_shell man page"
+
+.SH NAME
+	simple_shell - a UNIX command interpreter
+
+.SH SYNOPSIS
+
+	simple_shell [no options]
+
+.SH DESCRIPTION
+
+	Simple_shell is a UNIX command line interpreter that executes commands recieved from STDIN.
+
+.SH Options
+	--help
+        POC slack Grace Fallon or Derek Clemens
+
+.SH ARGUMENTS
+	simple_shell reads the first argument passed as a command, and the following arguments as command parameters.
+
+.SH EXAMPLES
+
+        to list the files in simple_shell
+        $ /bin/ls -l
+
+
+.SH BUGS
+	No known bugs.
+
+.SH AUTHORS
+        Grace Fallon email 2745@holbertonschool.com.
+        Derek Clemens email 2334@holbertonschool.com.
+
+.SH COPYRIGHT
+        Project due date 04/15/2021 Holberton School Tulsa.
