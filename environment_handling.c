@@ -22,7 +22,6 @@ char *_getenv(char *name)
 			break;
 	}
 	env_str = _strdup(environ[i] + 5); /* preserve PATH integrity */
-	printf("Environment String: %s\n", env_str);
 	return (env_str);
 }
 
@@ -43,19 +42,14 @@ char *search_PATH(char *pth, char *command_file)
 
 	env_token = tokenize(pth, ":");
 	for (x = 0; env_token[x] != NULL; x++)
-	printf("Env_token %d: %s\n", x, env_token[x]);
 	cmd_len = _strlen(command_file);
 	while (env_token[i])
 	{
 		dir = malloc(sizeof(char) * (cmd_len + _strlen(env_token[i]) + 2));
-		printf("DIR (envtok duplicate): %s\n", env_token[i]);
 		dir = _strncpy(dir, env_token[i], _strlen(env_token[i]));
-		printf("DIR is still: %s\n", dir);
 		/* combine command with directory path */
 		dir = _strncat(dir, "/", 2); /* slash before command sought */
-		printf("DIR still is?: %s\n", dir);
 		dir = _strncat(dir, command_file, cmd_len + 1); /* add command */
-		printf("Full pathname %s\n", dir);
 		if (stat(dir, &structbuf) == 0)
 		{
 			free(env_token);
