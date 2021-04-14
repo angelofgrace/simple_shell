@@ -15,12 +15,14 @@ int main(void)
 	{
 		if (isatty(fileno(stdin)))
 		       	write(2, "$ ", 2); /* prompt user for input */
-		
 		if (getline(&lineptr, &n, stdin) == -1)
 		{
-			if (errno = 0)
+			if (errno == 0)
 				break; /* this means EOF */
-			else
+			else if (errno == 25)
+			{
+				break;
+			}
 			{
 				perror("getline"); /* getline error */
 				break;
@@ -84,8 +86,8 @@ int fork_find_exec(char *lineptr, char **exec_str)
         int status = 0;
         char *path_str = NULL;
         char word_path[5] = {'P', 'A', 'T', 'H', '\0'};
+
         child = fork();
-        
 	if (child == -1) /* fork fail */
 	{
 		free(lineptr);
