@@ -66,3 +66,4 @@ char *search_PATH(char *pth, char *command_file)
 	}
 	return (dir);
 }
+
