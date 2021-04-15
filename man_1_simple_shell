@@ -12,19 +12,44 @@
 .SH DESCRIPTION
 
 	Simple_shell is a UNIX command line interpreter that executes commands recieved from STDIN.
+.PP
+.SH USAGE
+.PP
+	simple_shell accepts user commands from STDIN. The commmand is passed to the shell in the form of a string. the shell is capiable of the following:
 
-.SH Options
+	Tokenizing the command line string into a null terminated array.
+
+	Searches the PATH for command if exact path is not given.
+
+	Execute the command passed by the user.
+
+	If the command or PATH are not found the simple_shell will return an error message.
+.PP
+.SH OPTIONS
+.PP
 	--help
-        POC slack Grace Fallon or Derek Clemens
+.PP
+     POC slack Grace Fallon or Derek Clemens
 
 .SH ARGUMENTS
+.PP
 	simple_shell reads the first argument passed as a command, and the following arguments as command parameters.
-
+.PP
 .SH EXAMPLES
-
-        to list the files in simple_shell
+.PP
+	simple_shell can be accessed in 2 ways. interactive mode and non interactive mode.
+.PP
+.B	Interactive mode
+.PP
         $ /bin/ls -l
-
+.PP	
+.B	Non-ninteractie mode
+.PP
+	echo ls -l | ./hsh
+.PP
+.SH BUILTIN
+.IP exit
+Exits simple_shell and frees all memory allocated during use.
 
 .SH BUGS
 	No known bugs.
