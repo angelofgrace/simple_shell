@@ -21,7 +21,7 @@ int main(void)
 			if (errno == 0 || errno == 25)
 			{
 				if (isatty(STDIN_FILENO))
-					write (1, "\n", 1);
+					write(1, "\n", 1);
 				break; /* this means EOF */
 			}
 			else
@@ -38,7 +38,6 @@ int main(void)
 			exit(0);
 		}
 		exec_str = tokenize(lineptr, " "); /* tokenize commands */
-		printf("%s same??as?? %s\n", exec_str[0], exit_str);
 		fork_find_exec(lineptr, exec_str);
 		free(exec_str);
 	}

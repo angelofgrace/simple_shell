@@ -42,7 +42,7 @@
 .B	Interactive mode
 .PP
         $ /bin/ls -l
-.PP	
+.PP
 .B	Non-ninteractie mode
 .PP
 	echo ls -l | ./hsh
