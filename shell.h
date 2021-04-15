@@ -44,8 +44,14 @@ char *_strncpy(char *dest, char *src, int n);
 /* Search for matching prefix substring */
 int _strspn(char *s, char *accept);
 
+/* Compare two strings, character by character */
+int _strcmp(char *s1, char *s2);
+
 /* Fork the stream for execve */
 int fork_find_exec(char *lineptr, char **exec_str);
+
+/* Handle ^C Signal */
+void handler(int num);
 
 /* SHELL_H end */
 #endif
