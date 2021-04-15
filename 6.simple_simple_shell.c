@@ -6,11 +6,12 @@
 */
 int main(void)
 {
-	char *lineptr = NULL;
+	char *lineptr = NULL, exit_str[5] = {'e', 'x', 'i', 't', '\0'};
 	char **exec_str = NULL;
 	size_t n = 0;
 
 	errno = 0;
+	signal(SIGINT, handler);
 	while (1)
 	{
 		if (isatty(fileno(stdin)))
@@ -30,7 +31,14 @@ int main(void)
 			}
 		}
 		lineptr[_strlen(lineptr) - 1] = '\0'; /* replace /n with null byte */
+		if (_strcmp(exit_str, lineptr) == 0)
+		{
+			free(exec_str);
+			free(lineptr);
+			exit(0);
+		}
 		exec_str = tokenize(lineptr, " "); /* tokenize commands */
+		printf("%s same??as?? %s\n", exec_str[0], exit_str);
 		fork_find_exec(lineptr, exec_str);
 		free(exec_str);
 	}
